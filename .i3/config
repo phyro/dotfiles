@@ -192,16 +192,22 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
 # startup programs
-exec redshift
+exec redshift -l 55.7:12.6 -t 5700:3600 -g 0.8 -m randr -v &
+#exec redshift -l48.1:11.6 &
 exec setxkbmap -layout us
 
 # Custom bindings
 bindsym Mod4+l exec i3lock
 bindsym Mod4+p exec xrandr --output eDP1 --off --output HDMI2 --auto
-bindsym Mod4+o exec xrandr --output eDP1 --auto --output HDMI2 --off
+bindsym Mod4+o exec xrandr --output eDP1 --auto --output HDMI2 --off --output DP1 --off
+bindsym Mod4+i exec xrandr --output eDP1 --off --output DP1 --auto
+
 
 # screenshoot and save it in /tmp with a datetime as filename
 bindsym Print exec import -window root -screen /tmp/$(date | sed  's/[ |:]/_/g').png
 
 # Make sure i3lock gets called automatically after 5 minutes of inactivity
-exec --no-startup-id xautolock -time 5 -locker i3lock &
+#exec --no-startup-id xautolock -time 5 -locker i3lock &
+#exec --no-startup-id "xautolock -detectsleep -time 3 -locker 'i3lock -d -c 000000' -notify 30 -notifier \"notify-send -t 2000 'Locking screen in 30 seconds'\""
+exec --no-startup-id xautolock -time 5 -locker i3lock -notify 30 -notifier \"notify-send -t 2000 'Locking screen in 30 seconds'\" &
+
